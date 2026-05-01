@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Trusted Paws | Happy Poppy Rescue & Adoption</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fefaf5;
+      color: #2d2a24;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --paw-orange: #e67e22;
+      --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --shadow-hover: 0 20px 30px -12px rgba(0,0,0,0.1);
+    }
+
+    .navbar {
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .logo-area:hover { transform: scale(1.02); }
+
+    .poppy-logo {
+      background: #f7d9b5;
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    }
+
+    .logo-text h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c25b1b, #8b4513);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .logo-text p {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #b45f2b;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.8rem;
+      cursor: pointer;
+      color: #4a3b2c;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .nav-btn.active, .nav-btn:hover {
+      color: var(--paw-orange);
+      border-bottom-color: var(--paw-orange);
+    }
+
+    .home-btn {
+      background: #f0e1cf;
+      border-radius: 40px;
+    }
+    .home-btn:hover {
+      background: #e6d2bb;
+      border-bottom-color: transparent;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 3rem;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    .section.active-section {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .hero-greeting {
+      background: linear-gradient(110deg, #fff0e0, #fff9f2);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-greeting h2 {
+      font-size: 2.2rem;
+      font-family: 'Playfair Display', serif;
+      color: #77450e;
+    }
+
+    .special-gallery {
+      margin-bottom: 2.5rem;
+    }
+    .special-gallery h3 {
+      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      color: #b45f2b;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .gallery-card {
+      background: white;
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      border: 1px solid #ffe3cc;
+    }
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+    .gallery-img {
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .gallery-caption {
+      padding: 1rem;
+      text-align: center;
+      background: white;
+    }
+    .gallery-caption p {
+      color: #a55117;
+      font-weight: 600;
+    }
+
+    .info-section {
+      background: white;
+      border-radius: 2rem;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 2rem;
+    }
+    .info-section h2 {
+      font-size: 1.9rem;
+      font-family: 'Playfair Display', serif;
+      border-left: 6px solid var(--paw-orange);
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 1.8rem 0;
+    }
+    .care-card {
+      background: #fffaf4;
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      border: 1px solid #f9e1ca;
+    }
+    .care-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+    .care-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .care-list li {
+      margin-bottom: 0.7rem;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .care-list li::before {
+      content: "🐾";
+      position: absolute;
+      left: -2px;
+    }
+    .flexible-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .flex-card {
+      background: #fef7e8;
+      padding: 1rem;
+      border-radius: 1.2rem;
+      text-align: center;
+      font-weight: 600;
+    }
+    .breeds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .breed-card {
+      background: white;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #ffe0c7;
+      transition: transform 0.2s;
+    }
+    .breed-card:hover {
+      transform: translateY(-4px);
+    }
+    .breed-img {
+      height: 240px;
+      background-size: cover;
+      background-position: center;
+    }
+    .breed-info {
+      padding: 1rem;
+    }
+    .breed-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #a55117;
+    }
+    .breed-detail {
+      font-size: 0.85rem;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    
+    /* Testimonials Styles */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .testimonial-card {
+      background: white;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #ffe3cc;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .testimonial-img {
+      height: 260px;
+      background-size: cover;
+      background-position: center;
+      background-color: #f5e6d8;
+      position: relative;
+    }
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+    .testimonial-content {
+      padding: 1.5rem;
+      text-align: center;
+      flex: 1;
+    }
+    .testimonial-text {
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #4a3b2c;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .testimonial-text::before {
+      content: "“";
+      font-size: 3rem;
+      color: var(--paw-orange);
+      opacity: 0.3;
+      position: absolute;
+      top: -10px;
+      left: -5px;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      color: #b45f2b;
+      margin-top: 0.5rem;
+    }
+    .testimonial-location {
+      font-size: 0.8rem;
+      color: #8a7a66;
+    }
+    .rating {
+      color: #f5a623;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .video-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #000000;
+      color: white;
+      padding: 0.7rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+      width: 100%;
+      max-width: 200px;
+    }
+    .video-link-btn:hover {
+      background: #e67e22;
+      transform: scale(1.02);
+    }
+
+    .contact-email-card {
+      background: linear-gradient(135deg, #fff5e8, #fffbf5);
+      border-radius: 1.8rem;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      border: 1px solid #ffdec2;
+    }
+    .email-address {
+      font-family: monospace;
+      background: white;
+      padding: 0.4rem 1rem;
+      border-radius: 60px;
+      font-weight: bold;
+      color: #c25b1b;
+    }
+    .copy-btn {
+      background: #e67e22;
+      border: none;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover {
+      background: #b95f1a;
+    }
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2b5e3b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 200;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #eedbcb;
+      font-size: 0.8rem;
+      color: #7a6246;
+    }
+    @media (max-width: 700px) {
+      .navbar { flex-direction: column; }
+      .container { padding: 1rem; }
+      .nav-btn { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo-area" id="logoHomeTrigger">
+    <div class="poppy-logo">🐾🌼</div>
+    <div class="logo-text"><h1>Trusted Paws</h1><p>happy poppy • ethical rescue</p></div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-btn home-btn" id="navHomeBtn">🏠 HOME</button>
+    <button class="nav-btn" id="navCareBtn">🐕 Caregivers</button>
+    <button class="nav-btn" id="navDeliveryBtn">🚚 Delivery</button>
+    <button class="nav-btn" id="navBreedBtn">📖 Breed Guide</button>
+    <button class="nav-btn" id="navTestimonialBtn">💬 Testimonials</button>
+  </div>
+</nav>
+
+<main class="container">
+  <div id="homeSection" class="section active-section">
+    <div class="hero-greeting">
+      <h2>🐶 Trusted Paws — Happy Poppy Rescue</h2>
+      <p>Ethical care, love, and dedication for every dog.</p>
+    </div>
+    
+    <div class="special-gallery">
+      <h3>✨ Featured Companions ✨</h3>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <div class="gallery-img" style="background-image: url('https://www.dogster.com/wp-content/uploads/2024/03/Yorkie-dog-in-grass_Amber-Earnest-Shutterstock.jpg');"></div>
+          <div class="gallery-caption"><p>🐾 Yorkshire Terrier — Bold & Affectionate</p></div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-img" style="background-image: url('https://www.dogster.com/wp-content/uploads/2023/03/cane-corso-puppies_Sbolotova_Shutterstock.jpg');"></div>
+          <div class="gallery-caption"><p>🐾 Cane Corso — Loyal & Protective</p></div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-img" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm5GEeKMZ8BryQZFTVZDOfgH2cXUub1EP8iw&s');"></div>
+          <div class="gallery-caption"><p>🐾 Golden Retriever — Gentle & Loving</p></div>
+        </div>
+        <div class="gallery-card">
+          <div class="gallery-img" style="background-image: url('https://cdn.britannica.com/45/233845-050-6B6A7F3E/Two-French-bulldogs.jpg');"></div>
+          <div class="gallery-caption"><p>🐾 French Bulldog — Playful & Affectionate</p></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="contact-email-card">
+      <div><span style="font-size:1.8rem;">✉️</span> <strong>Communicator:</strong> <span class="email-address">TrustedPaws001@protonmail.com</span><br><small>Adoption inquiries & support</small></div>
+      <button class="copy-btn" id="copyEmailHome">📋 Copy Email</button>
+    </div>
+  </div>
+
+  <div id="caregiverSection" class="section">
+    <div class="info-section"><h2>🐾 Our Caregivers</h2><p>At <strong>Trusted Paws</strong>, our caregivers are the heart of everything we do. They are dedicated animal care professionals responsible for the wellbeing, development, and emotional support of every dog in our adoption program.</p>
+    <p style="margin-top:1rem; background:#f6efe7; padding:0.8rem; border-radius:1rem;">Unlike traditional pet service providers, we do not offer daycare, boarding, or training services for privately owned dogs. Our caregivers focus exclusively on dogs within our care.</p></div>
+    <div class="info-section"><h2>🐶 What Our Caregivers Do</h2><div class="grid-2col">
+      <div class="care-card"><h3>📋 Daily Care & Monitoring</h3><ul class="care-list"><li>Feeding, grooming, hygiene</li><li>Continuous health observation</li></ul></div>
+      <div class="care-card"><h3>🧠 Behavioral Support</h3><ul class="care-list"><li>Building confidence</li><li>Positive behaviors & socialization</li></ul></div>
+      <div class="care-card"><h3>🩺 Health & Wellness</h3><ul class="care-list"><li>Working with veterinarians</li><li>Vaccinations & check-ups</li></ul></div>
+      <div class="care-card"><h3>❤️ Emotional Care</h3><ul class="care-list"><li>Attention, affection, stable routine</li><li>Mental wellbeing support</li></ul></div>
+      <div class="care-card"><h3>🏡 Adoption Readiness</h3><ul class="care-list"><li>Temperament assessment</li><li>Matching with right family</li></ul></div>
+    </div></div>
+    <div class="info-section"><h2>❤️ Our Commitment to Ethical Care</h2><div style="background:#eef3e8; border-radius:1.5rem; padding:1.2rem;"><ul class="care-list"><li>Safe, clean, comfortable living conditions</li><li>Humane treatment & positive reinforcement</li><li>Individualized attention for every dog</li><li>Transparency throughout adoption process</li></ul></div>
+    <div style="margin-top:1rem; background:#ffe5d5; padding:1rem; border-radius:2rem; text-align:center;">🐕 Our mission is solely focused on rescue, rehabilitation, and responsible adoption.</div></div>
+    <div class="info-section"><h2>🌟 Why It Matters</h2><p>The role of our caregivers goes beyond basic care—they help transform lives. Through patience, dedication, and compassion, they prepare each dog not just to be adopted, but to thrive in a new home.</p></div>
+    <div class="contact-email-card"><div>📧 <strong>TrustedPaws001@protonmail.com</strong></div><button class="copy-btn" id="copyEmailCare">Copy Email</button></div>
+  </div>
+
+  <div id="deliverySection" class="section">
+    <div class="info-section"><h2>🚚 Dog Delivery Services (Company Division)</h2><p>The Delivery Service is a specialized division of our company responsible for the safe, reliable, and stress-free transportation of dogs to and from designated locations.</p></div>
+    <div class="info-section"><h2>📌 Scope of Delivery Services</h2><div class="flexible-grid">
+      <div class="flex-card">🏠 Home Delivery</div><div class="flex-card">🔄 Pick-Up Services</div>
+      <div class="flex-card">🌍 Inter-City & Long-Distance</div><div class="flex-card">⚡ Scheduled & On-Demand</div>
+    </div></div>
+    <div class="info-section"><h2>🐾 Handling & Transportation Standards</h2><ul class="care-list"><li>Well-ventilated, clean, secure transport vehicles</li><li>Comfortable crates or carriers suited to dog's size</li><li>Regular monitoring during transit</li><li>Minimal travel stress through proper handling</li></ul></div>
+    <div class="info-section"><h2>🛡️ Safety & Compliance</h2><ul class="care-list"><li>Pre-transport health checks and documentation</li><li>Trained handlers experienced in animal transportation</li><li>Adherence to local pet transport regulations</li><li>Emergency preparedness during transit</li></ul></div>
+    <div class="info-section"><h2>⏰ Client Convenience</h2><ul class="care-list"><li>Saving time and reducing travel stress for clients</li><li>Door-to-door service</li><li>Real-time updates during delivery</li></ul></div>
+    <div class="info-section"><h2>🔄 Flexible Delivery Options</h2><div class="grid-2col">
+      <div class="care-card"><h3>⏰ Scheduled Deliveries</h3><p>Advance booking, preferred date and time window.</p></div>
+      <div class="care-card"><h3>⚡ On-Demand / Same-Day</h3><p>Urgent needs, short-notice service.</p></div>
+      <div class="care-card"><h3>🌍 Local & Long-Distance</h3><p>Within-city and inter-city transportation.</p></div>
+      <div class="care-card"><h3>🚪 Door-to-Door Service</h3><p>Full pickup to final delivery.</p></div>
+      <div class="care-card"><h3>🕒 Time Window Flexibility</h3><p>Morning, afternoon, or evening windows.</p></div>
+      <div class="care-card"><h3>📍 Custom Requests</h3><p>Special handling, alternative locations.</p></div>
+    </div></div>
+    <div class="info-section"><h2>🎯 Purpose of This Service</h2><p>Ensures every dog reaches its destination safely, comfortably, and on time. Reflects our commitment to a complete, client-focused experience extending into reliable logistics.</p></div>
+  </div>
+
+  <div id="breedSection" class="section">
+    <div class="info-section"><h2>🐾 Dog Breed Information Guide</h2><p>Complete guide with temperament, size, best for, and care notes for popular breeds.</p></div>
+    <div class="breeds-grid" id="breedsContainer"></div>
+  </div>
+
+  <!-- TESTIMONIALS SECTION with Updated Images -->
+  <div id="testimonialSection" class="section">
+    <div class="info-section">
+      <h2>💬 Happy Tails — Video Testimonials</h2>
+      <p>Real stories from our community. Watch these authentic TikTok video testimonials from families who found their perfect companion through Trusted Paws.</p>
+      <div class="testimonials-grid" id="testimonialsContainer"></div>
+    </div>
+    <div class="contact-email-card">
+      <div><span style="font-size:1.8rem;">🐕</span> <strong>Share your story with us:</strong> <span class="email-address">TrustedPaws001@protonmail.com</span></div>
+      <button class="copy-btn" id="copyEmailTest">Copy Email</button>
+    </div>
+  </div>
+
+  <footer>🐕 Trusted Paws — Happy Poppy Rescue & Adoption | Ethical care, forever love<br>📧 TrustedPaws001@protonmail.com</footer>
+</main>
+<div id="toastMsg" class="toast-msg">📧 Email copied to clipboard!</div>
+
+<script>
+  // ============================================================
+  // DOG BREEDS DATA (13 Breeds)
+  // ============================================================
+  
+  const poodleImage = "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/dog101/breeds-a-z/poodle.jpg";
+  const frenchBulldogImage = "https://cdn.britannica.com/45/233845-050-6B6A7F3E/Two-French-bulldogs.jpg";
+  const labradorImage = "https://www.cacciapassione.com/wp-content/uploads/2020/08/Schermata-2020-08-24-alle-13.59.41.png";
+  const bulldogImage = "https://eu-central-1.graphassets.com/AnwjgMYRvQfWK3bRPjoq3z/resize=height:608,width:1080/output=format:webp/HSGD3fcJTOSGEavPVqLJ";
+  const rottweilerImage = "https://www.trupanion.com/images/trupanionwebsitelibraries/pet-blogs/rottweiler-1-.jpg?sfvrsn=b53e3100_6";
+  const dachshundImage = "https://www.carecredit.com/sites/cc/image/hero_dachshund_dog_breed.jpg";
+  const cavalierImage = "https://pet-health-content-media.chewy.com/wp-content/uploads/2024/09/11180342/202105cavalier-king-charles-spaniel-run-grass.jpg";
+  const dobermanImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSJr8Oc6mj54QJe9OcidU2S-UZ_NDli3rI_w&s";
+  const goldenImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm5GEeKMZ8BryQZFTVZDOfgH2cXUub1EP8iw&s";
+  const yorkieImage = "https://www.dogster.com/wp-content/uploads/2024/03/Yorkie-dog-in-grass_Amber-Earnest-Shutterstock.jpg";
+  const beagleImage = "https://www.animalbehaviorcollege.com/wp-content/uploads/2015/03/beagle.jpg";
+  const pugImage = "https://www.akc.org/wp-content/uploads/2017/01/Pug-laying-outdoors-on-the-sidewalk-in-the-Fall.jpg";
+  const caneCorsoNewImage = "https://ask.woodgreen.org.uk/media/pages/images/606cfb4444-1737540056/cane-corso-900x900-crop.jpg";
+  
+  const breedGuideData = [
+    { name: "French Bulldog", size: "Small", temper: "Friendly, affectionate, easygoing", best: "Apartments, low-activity owners", notes: "Requires minimal exercise but sensitive to heat", image: frenchBulldogImage },
+    { name: "Labrador Retriever", size: "Large", temper: "Friendly, intelligent, outgoing", best: "Families, active owners", notes: "Highly trainable and great with children", image: labradorImage },
+    { name: "Golden Retriever", size: "Large", temper: "Gentle, loyal, intelligent", best: "Families, therapy roles", notes: "Needs regular grooming and exercise", image: goldenImage },
+    { name: "Poodle", size: "Toy, Miniature, Standard", temper: "Intelligent, active, alert", best: "Families, allergy-sensitive homes", notes: "Requires grooming but low shedding", image: poodleImage },
+    { name: "Dachshund", size: "Small", temper: "Curious, brave, lively", best: "Small homes", notes: "Prone to back issues", image: dachshundImage },
+    { name: "Bulldog", size: "Medium", temper: "Calm, courageous, friendly", best: "Low-energy households", notes: "Needs care in hot weather", image: bulldogImage },
+    { name: "Beagle", size: "Medium", temper: "Curious, friendly, energetic", best: "Active families", notes: "Strong sense of smell; can wander", image: beagleImage },
+    { name: "Rottweiler", size: "Large", temper: "Loyal, confident, protective", best: "Experienced owners", notes: "Needs early training and socialization", image: rottweilerImage },
+    { name: "Cane Corso", size: "Large", temper: "Protective, loyal, intelligent, confident", best: "Experienced owners, active families", notes: "Requires firm training, early socialization, and plenty of exercise.", image: caneCorsoNewImage },
+    { name: "Yorkshire Terrier", size: "Small", temper: "Bold, affectionate, lively", best: "Apartments", notes: "Needs grooming", image: yorkieImage },
+    { name: "Cavalier King Charles Spaniel", size: "Small", temper: "Gentle, affectionate, friendly", best: "Families, companionship", notes: "Loves attention", image: cavalierImage },
+    { name: "Doberman Pinscher", size: "Large", temper: "Loyal, alert, intelligent", best: "Protection, experienced owners", notes: "Needs training and exercise", image: dobermanImage },
+    { name: "Pug", size: "Small", temper: "Charming, mischievous, loving", best: "Apartment living, families", notes: "Prone to breathing issues; avoid overheating", image: pugImage }
+  ];
+
+  // ============================================================
+  // TESTIMONIALS DATA - Updated with specific requested images
+  // Cane Corso: San Rocco Cane Corso image
+  // Yorkie: Carter Yorkies image
+  // Golden Retriever: Big Hearted Breeders image
+  // ============================================================
+  
+  const testimonialsData = [
+    {
+      image: "https://carteryorkies.com/sitebuilder/images/myyorkiepuppiesinBirminghamAL-262x272.jpg",
+      text: "We adopted our little Yorkie through Trusted Paws and couldn't be happier! The whole process was transparent, caring, and professional. Watch our TikTok video to see our joyful experience!",
+      author: "Sarah & Michael Thompson",
+      location: "Austin, Texas",
+      rating: "★★★★★",
+      videoLink: "https://vt.tiktok.com/ZS9y4qGqn/",
+      buttonText: "🎬 Watch on TikTok"
+    },
+    {
+      image: "https://www.bigheartedbreeders.com/wp-content/uploads/2025/02/IMG_4146-scaled.jpg",
+      text: "The caregivers at Trusted Paws matched us with our Golden Retriever who has the sweetest temperament. See our full adoption journey in this video testimonial!",
+      author: "Jennifer & David Chen",
+      location: "Portland, Oregon",
+      rating: "★★★★★",
+      videoLink: "https://vt.tiktok.com/ZS9yVfCLW/",
+      buttonText: "🎬 Watch on TikTok"
+    },
+    {
+      image: "https://sanroccocanecorso.com/wp-content/uploads/2020/06/canecorsopup-1.jpeg",
+      text: "Our Cane Corso has exceeded all expectations. Through Trusted Paws, we found a companion who is both protective and loving. Watch our video testimonial to see our journey with this amazing breed!",
+      author: "Northern Nevada Cane Corsos",
+      location: "Nevada, USA",
+      rating: "★★★★★",
+      videoLink: "https://www.tiktok.com/@northernnevadacanecorsos/video/7506551768684170527",
+      buttonText: "🎬 Watch on TikTok"
+    }
+  ];
+
+  function renderBreeds() {
+    const container = document.getElementById("breedsContainer");
+    if(!container) return;
+    container.innerHTML = breedGuideData.map(breed => `
+      <div class="breed-card">
+        <div class="breed-img" style="background-image: url('${breed.image}'); background-size: cover; background-position: center;"></div>
+        <div class="breed-info">
+          <div class="breed-name">🐕 ${breed.name}</div>
+          <div class="breed-detail">
+            <strong>Size:</strong> ${breed.size}<br>
+            <strong>Temperament:</strong> ${breed.temper}<br>
+            <strong>Best For:</strong> ${breed.best}<br>
+            <strong>Notes:</strong> ${breed.notes}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderTestimonials() {
+    const container = document.getElementById("testimonialsContainer");
+    if(!container) return;
+    container.innerHTML = testimonialsData.map(test => `
+      <div class="testimonial-card">
+        <div class="testimonial-img" style="background-image: url('${test.image}');">
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="testimonial-content">
+          <div class="rating">${test.rating}</div>
+          <div class="testimonial-text">${test.text}</div>
+          <div class="testimonial-author">— ${test.author}</div>
+          <div class="testimonial-location">📍 ${test.location}</div>
+          <a href="${test.videoLink}" target="_blank" rel="noopener noreferrer" class="video-link-btn">${test.buttonText} →</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const email = "TrustedPaws001@protonmail.com";
+  function copyEmail() {
+    navigator.clipboard.writeText(email).then(() => {
+      const toast = document.getElementById("toastMsg");
+      toast.style.opacity = "1";
+      setTimeout(() => toast.style.opacity = "0", 2000);
+    }).catch(() => alert("Copy manually: " + email));
+  }
+  
+  document.getElementById("copyEmailHome")?.addEventListener("click", copyEmail);
+  document.getElementById("copyEmailCare")?.addEventListener("click", copyEmail);
+  document.getElementById("copyEmailTest")?.addEventListener("click", copyEmail);
+  
+  const homeSec = document.getElementById("homeSection");
+  const careSec = document.getElementById("caregiverSection");
+  const deliverySec = document.getElementById("deliverySection");
+  const breedSec = document.getElementById("breedSection");
+  const testimonialSec = document.getElementById("testimonialSection");
+  
+  const navHome = document.getElementById("navHomeBtn");
+  const navCare = document.getElementById("navCareBtn");
+  const navDelivery = document.getElementById("navDeliveryBtn");
+  const navBreed = document.getElementById("navBreedBtn");
+  const navTestimonial = document.getElementById("navTestimonialBtn");
+  const logo = document.getElementById("logoHomeTrigger");
+
+  function setActive(section) {
+    homeSec.classList.remove("active-section");
+    careSec.classList.remove("active-section");
+    deliverySec.classList.remove("active-section");
+    breedSec.classList.remove("active-section");
+    testimonialSec.classList.remove("active-section");
+    
+    if(section === 'home') homeSec.classList.add("active-section");
+    if(section === 'care') careSec.classList.add("active-section");
+    if(section === 'delivery') deliverySec.classList.add("active-section");
+    if(section === 'breed') breedSec.classList.add("active-section");
+    if(section === 'testimonial') testimonialSec.classList.add("active-section");
+    
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
+    [navHome, navCare, navDelivery, navBreed, navTestimonial].forEach(btn => btn?.classList.remove("active"));
+    if(section === 'home') navHome.classList.add("active");
+    if(section === 'care') navCare.classList.add("active");
+    if(section === 'delivery') navDelivery.classList.add("active");
+    if(section === 'breed') navBreed.classList.add("active");
+    if(section === 'testimonial') navTestimonial.classList.add("active");
+  }
+
+  navHome.onclick = () => setActive('home');
+  navCare.onclick = () => setActive('care');
+  navDelivery.onclick = () => setActive('delivery');
+  navBreed.onclick = () => setActive('breed');
+  navTestimonial.onclick = () => setActive('testimonial');
+  logo.onclick = () => setActive('home');
+
+  renderBreeds();
+  renderTestimonials();
+</script>
+</body>
+</html>
